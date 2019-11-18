@@ -4,7 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Mini chat</title>
+
+<style>
+
+html {
+    height: 100%;
+    width: auto;
+    background-color: grey;
+    color: whitesmoke;
+}
+
+.center {
+text-align: center;
+}
+
+.chat_windows {
+    padding: 1em;
+    margin: 1em;
+    border: 10px solid orange;
+    border-radius: 5px;
+    height: auto;
+    width: 40em;
+
+}
+
+.form {
+    padding: 1em;
+    margin: 1em;
+}
+
+</style>
+
+
 </head>
 <body>
 
@@ -22,12 +54,12 @@ $reponse = $bdd->query('SELECT * FROM (
     LIMIT 10
   ) AS `table` ORDER by id ASC');
 
-echo "<div style='margin: auto; border: 2px solid black;'>";
+echo "<div class='chat_windows'>";
 
 // Affichage des éléments
 if (isset($reponse)) {
 while ($donnees = $reponse->fetch()) {
-    echo '<p><b>' . $donnees['pseudo'] . " : " . '</b>' . $donnees['message'] . '</p>';
+    echo "<p><b style='color: orange;'>" . $donnees['pseudo'] . " : " . '</b>' . $donnees['message'] . '</p>';
 }
 }
 
@@ -37,8 +69,8 @@ echo '</div>';
 ?>
 
 <!-- Formulaire -->
-<form method="post" action="minichat_post.php">
- <input type="text" name="pseudo" placeholder="Pseudo"/> <?php if (isset($pseudo)) {echo $pseudo;} ?>
+<form method="post" action="minichat_post.php" class="form center">
+ <input type="text" name="pseudo" placeholder="Pseudo"/>
  <input type="text" name="message"  placeholder="Message"/>
  <input type="submit" value="Envoyer">
 </form>
