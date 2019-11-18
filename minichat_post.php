@@ -1,4 +1,5 @@
 <?php
+
 header('Location: index.php');
 // La ligne du dessus permet une redirection invisible pour l'utilisateur, elle doit être placée absolument tout en haut du code
 
@@ -23,12 +24,14 @@ $pseudo = htmlspecialchars(mysqli_real_escape_string($link, $_REQUEST['pseudo'])
 $message = htmlspecialchars(mysqli_real_escape_string($link, $_REQUEST['message']));
  
 // Attempt insert query execution
-$sql = "INSERT INTO chat (pseudo, message) VALUES ('$pseudo', '$message')";
+$sql = "INSERT INTO chat (pseudo, message, date_ajout) VALUES ('$pseudo', '$message', NOW())";
 if(mysqli_query($link, $sql)){
     echo "Records added successfully.";
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);
 }
+
+setcookie('pseudo', $pseudo, time() + 365*24*3600, null, null, false, true);
  
 // Close connection
 mysqli_close($link);

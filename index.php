@@ -70,7 +70,7 @@ echo '</div>';
 
 <!-- Formulaire -->
 <form method="post" action="minichat_post.php" class="form center">
- <input type="text" name="pseudo" placeholder="Pseudo"/>
+ <input type="text" name="pseudo" placeholder="Pseudo" value="<?php if (isset($_COOKIE['pseudo'])) {echo $_COOKIE['pseudo'];}?>"/>
  <input type="text" name="message"  placeholder="Message"/>
  <input type="submit" value="Envoyer">
 </form>
