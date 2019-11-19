@@ -46,24 +46,52 @@ text-align: center;
 $bdd = new PDO('mysql:host=localhost;dbname=TP_minichat;charset=utf8', 'root', '');
 
 
-// Selection des éléments
-$reponse = $bdd->query("SELECT * FROM (
+// Define variables wich would be used
+$limit = 10;
+$sql_line = $bdd->query("SELECT * FROM (
     SELECT * 
     FROM chat 
     ORDER BY id DESC
-    LIMIT 10
+    LIMIT $limit
   ) AS `table` ORDER by id ASC");
 
 
-// Affichage des messages
-echo "<div class='chat_windows'>";
-if (isset($reponse)) {
-while ($donnees = $reponse->fetch()) {
-    echo "<p><b style='color: orange;'>" . $donnees['pseudo'] . " : " . '</b>' . $donnees['message'] . '</p>';}}
-echo '</div>';
+// Selection sql
+function sql_selection($bdd, $limit) {
+    $sql_line = $bdd->query("SELECT * FROM (
+        SELECT * 
+        FROM chat 
+        ORDER BY id DESC
+        LIMIT $limit
+        ) AS `table` ORDER by id ASC");
+}
+
+
+// Display messages
+function display_messages($sql_line) {
+    echo "<div class='chat_windows'>";
+    foreach ($sql_line as $donnees) {
+        echo "<p><b style='color: orange;'>" . $donnees['pseudo'] . " : " . '</b>' . $donnees['message'] . '</p>';}
+    echo '</div>';
+}
+
+
+// increase number of message if clicked
+if ( isset( $_POST['moreMessage'] ) )
+    {
+        $limit += 10;
+        sql_selection($bdd, $limit);
+        display_messages($sql_line);
+    }; 
+
+
 
 ?>
 
+<!-- Formulaire d'action plus de message-->
+<form class="center" action="index2.php" method="post">
+    <input type="submit" name="moreMessage" value="Voir plus de message" />
+</form>
 
 <!-- Formulaire pseudo message-->
 <form method="post" action="minichat_post.php" class="form center">
@@ -72,11 +100,11 @@ echo '</div>';
  <input type="submit" value="Envoyer">
 </form>
 
-
 <!-- Invisible track for redirection from minichat_post.php file -->
-<form method="post" action="minichat_post.php">
-<input type="hidden" name="page" value="1">
+<form method="get" action="minichat_post.php">
+<input type="hidden" name="page" value="2">
 </form>
+
 
 </body>
 </html>

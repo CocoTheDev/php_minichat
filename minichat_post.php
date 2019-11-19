@@ -1,8 +1,6 @@
 <?php
 
-header('Location: index.php');
-// La ligne du dessus permet une redirection invisible pour l'utilisateur, elle doit être placée absolument tout en haut du code
-
+header('Location: index2.php');
 
 
 $host = "localhost";
