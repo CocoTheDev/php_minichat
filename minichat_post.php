@@ -1,6 +1,7 @@
 <?php
 
-header('Location: index2.php');
+$url = "index" . $_POST['page'] . ".php";
+header("Location: $url");
 
 
 $host = "localhost";

@@ -69,14 +69,12 @@ echo '</div>';
 <form method="post" action="minichat_post.php" class="form center">
  <input type="text" name="pseudo" placeholder="Pseudo" value="<?php if (isset($_COOKIE['pseudo'])) {echo $_COOKIE['pseudo'];}?>"/>
  <input type="text" name="message"  placeholder="Message"/>
+ <input type="hidden" name="page" value="">
  <input type="submit" value="Envoyer">
 </form>
 
 
-<!-- Invisible track for redirection from minichat_post.php file -->
-<form method="post" action="minichat_post.php">
-<input type="hidden" name="page" value="1">
-</form>
+
 
 </body>
 </html>
